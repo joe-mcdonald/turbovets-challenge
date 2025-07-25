@@ -1,0 +1,14 @@
+<div class="toolbar">
+    <button (click)="togglePreview()">
+        {{ previewMode ? 'Edit' : 'Preview' }}
+    </button>
+    <button *ngIf="!previewMode" (click)="save(); previewMode = true">
+        Save
+    </button>
+</div>
+
+<div *ngIf="!previewMode">
+    <textarea [(ngModel)]="content" rows="15" placeholder="Write your knowledge here..."></textarea>
+</div>
+
+<div *ngIf="previewMode" class="preview" [innerHTML]="renderedMarkdown"></div>

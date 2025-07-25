@@ -1,0 +1,26 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.left-panel,
+.right-panel {
+  width: 20%;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-right: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.right-panel {
+  border-right: none;
+  border-left: 1px solid #ccc;
+}
+
+.main-panel {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  box-sizing: border-box;
+}

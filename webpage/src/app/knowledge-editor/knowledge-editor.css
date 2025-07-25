@@ -1,0 +1,23 @@
+textarea {
+    width: 100%;
+    font-family: monospace;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+.preview {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fafafa;
+    margin-top: 10px;
+}
+
+.toolbar {
+    margin-bottom: 10px;
+}
+
+button {
+    margin-right: 10px;
+    padding: 5px 10px;
+}

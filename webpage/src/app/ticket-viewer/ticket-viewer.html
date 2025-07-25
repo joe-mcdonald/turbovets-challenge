@@ -1,0 +1,25 @@
+<div class="mb-4 border-l border-gray-300 pl-4">
+    <button (click)="setStatusFilter('All')" [class.active]="selectedStatus === 'All'" class="btn btn-primary">All</button>
+    <button (click)="setStatusFilter('Open')" [class.active]="selectedStatus === 'Open'" class="btn btn-primary">Open</button>
+    <button (click)="setStatusFilter('In Progress')" [class.active]="selectedStatus === 'In Progress'" class="btn btn-primary">In Progress</button>
+    <button (click)="setStatusFilter('Closed')" [class.active]="selectedStatus === 'Closed'" class="btn btn-primary">Closed</button>
+</div>
+
+<table class="ticket-table">
+    <thead>
+        <tr>
+            <th>Ticket ID</th>
+            <th>Subject</th>
+            <th>Status</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ticket of filteredTickets">
+            <td>{{ ticket.id }}</td>
+            <td>{{ ticket.subject }}</td>
+            <td>{{ ticket.status }}</td>
+            <td>{{ ticket.createdAt }}</td>
+        </tr>
+    </tbody>
+</table>
