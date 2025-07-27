@@ -18,7 +18,24 @@ class _WebviewScreenState extends State<WebviewScreen> {
         WebViewController()
           ..setJavaScriptMode(JavaScriptMode.unrestricted)
           ..loadRequest(Uri.parse('http://localhost:4200'));
-    // ..loadRequest(Uri.parse('http://192.168.xxx.xxx:4200')); // your local IP address
+    // your local IP address. Use this if testing on a physical device
+    // ..loadRequest(Uri.parse('http://192.168.xxx.xxx:4200'));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _updateTheme();
+  }
+
+  void _updateTheme() {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    _controller.runJavaScript('''
+      if (window.updateFlutterTheme) {
+        window.updateFlutterTheme($isDark);
+      }
+    ''');
   }
 
   @override

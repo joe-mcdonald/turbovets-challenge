@@ -1,14 +1,52 @@
+:host {
+    display: block;
+    padding: 8px;
+    background-color: var(--bg-color, #ffffff);
+    color: var(--text-color, #000000);
+    border-bottom: 1px solid var(--border-color, #e0e0e0);
+}
+
+
 a {
     text-decoration: none;
-    color: black;
+    color: var(--text-color, #000000);
+    background-color: transparent;
     font-weight: bold;
     border-bottom: 2px solid transparent;
     border-radius: 4px;
     padding: 4px 8px;
+    transition: all 0.3s ease;
 }
+
 a.active {
     font-weight: bold;
     background-color: #007bff;
     color: white;
+    transition: all 0.3s ease;
+}
+
+
+
+button {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: 2px solid tranparent;
+    border-radius: 4px;
+    background-color: transparent;
+    color: var(--text-color, #000000);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--card-bg, #e0e0e0);
+    border-color: var(--border-color, #e0e0e0);
+}
+
+button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
     transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: bold;
 }

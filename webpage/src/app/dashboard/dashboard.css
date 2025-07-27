@@ -8,7 +8,7 @@
 .right-panel {
   width: 20%;
   padding: 20px;
-  background-color: #f0f0f0;
+  background-color: var(--bg-color, #f0f0f0);
   border-right: 1px solid #ccc;
   box-sizing: border-box;
 }
@@ -21,6 +21,6 @@
 .main-panel {
   flex: 1;
   padding: 20px;
-  background-color: #fff;
+  background-color: var(--bg-color, #ffffff);
   box-sizing: border-box;
 }

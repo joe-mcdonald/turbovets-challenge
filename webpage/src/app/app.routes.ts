@@ -12,10 +12,10 @@ export const routes: Routes = [
         path: '',
         component: Header,
         children: [
-            { 
-                path: 'dashboard', 
-                loadComponent: () => import('./dashboard/dashboard').then(m => m.Dashboard),
-            },
+            // { 
+            //     path: 'dashboard', 
+            //     loadComponent: () => import('./dashboard/dashboard').then(m => m.Dashboard),
+            // },
             { 
                 path: 'tickets', 
                 loadComponent: () => import('./ticket-viewer/ticket-viewer').then(m => m.TicketViewer),
