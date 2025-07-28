@@ -1,4 +1,5 @@
 # TurboVets Flutter Challenge
+This is a messaging app with an embedded internal tools dashboard. It has a native messaging interface built in Flutter and an embedded Angular (with TailwindCSS styling) dashboard displayed via WebView from within the Flutter app interface. The dashboard has a ticket status tracker, a knowledgebase editor (markdown editor) and a live log console.
 
 ## Angular Server
 The Angular Server that hosts the internal tools dashboard can be run with this command:
