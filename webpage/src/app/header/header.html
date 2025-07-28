@@ -1,6 +1,24 @@
-<nav style="display: flex; gap: 1rem; background: var(--bg-color, #f2f2f2); margin-bottom: 1rem;">
-  <a routerLink="/tickets" routerLinkActive="active">Ticket Viewer</a>
-  <a routerLink="/editor" routerLinkActive="active">Knowledge Base</a>
-  <a routerLink="/logs" routerLinkActive="active">Live Logs</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="min-h-screen bg-background dark:bg-darkbg text-text dark:text-text-inverse">
+  <nav class="flex gap-4 bg-background dark:bg-darkbg border-b border-border dark:border-border-dark p-4 mb-4">
+    <a
+      routerLink="/tickets"
+      routerLinkActive="!bg-primary !text-white font-bold"
+      class="px-3 py-1.5 rounded text-text dark:text-text-inverse hover:bg-background-card dark:hover:bg-darkbg-card transition-all duration-300 font-bold"
+      [routerLinkActiveOptions]="{ exact: true }">
+      Ticket Viewer <!-- Link to the ticket viewer page -->
+    </a>
+    <a
+      routerLink="/editor"
+      routerLinkActive="!bg-primary !text-white font-bold"
+      class="px-3 py-1.5 rounded text-text dark:text-text-inverse hover:bg-background-card dark:hover:bg-darkbg-card transition-all duration-300 font-bold">
+      Knowledgebase Editor <!-- Link to the knowledgebase editor page -->
+    </a>
+    <a
+      routerLink="/logs"
+      routerLinkActive="!bg-primary !text-white font-bold"
+      class="px-3 py-1.5 rounded text-text dark:text-text-inverse hover:bg-background-card dark:hover:bg-darkbg-card transition-all duration-300 font-bold">
+      Live Logs <!-- Link to the live logs page -->
+    </a>
+  </nav>
+  <router-outlet></router-outlet> <!-- Outlet displays the content --> 
+</div>

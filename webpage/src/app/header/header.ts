@@ -7,6 +7,5 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   selector: 'app-header',
   imports: [CommonModule, RouterModule, RouterOutlet],
   templateUrl: './header.html',
-  styleUrl: './header.css'
 })
 export class Header {}

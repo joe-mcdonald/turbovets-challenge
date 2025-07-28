@@ -21,6 +21,7 @@ class _MessageBubbleState extends State<MessageBubble> {
   double _dragOffset = 0.0;
   bool _isDragging = false;
 
+  // Format time for display
   String _formatTime(DateTime time) {
     return "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
   }
@@ -28,6 +29,7 @@ class _MessageBubbleState extends State<MessageBubble> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      // Start dragging
       onPanStart: (details) {
         setState(() {
           _isDragging = true;
@@ -38,7 +40,7 @@ class _MessageBubbleState extends State<MessageBubble> {
         setState(() {
           if (details.delta.dx < 0) {
             _dragOffset += details.delta.dx;
-            _dragOffset = _dragOffset.clamp(-60.0, 0.0);
+            _dragOffset = _dragOffset.clamp(-60.0, 0.0); // Limit drag to left
           }
         });
       },
@@ -52,7 +54,7 @@ class _MessageBubbleState extends State<MessageBubble> {
         margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
         child: Stack(
           children: [
-            if (widget.timestamp != null)
+            if (widget.timestamp != null) // Show timestamp if available
               Positioned(
                 right: 20,
                 top: 0,
@@ -68,7 +70,9 @@ class _MessageBubbleState extends State<MessageBubble> {
                 ),
               ),
             Transform.translate(
+              // Apply drag offset
               offset: Offset(_dragOffset, 0),
+              // Wrap message in a container to get the correct alignment
               child: Container(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 width:
@@ -98,6 +102,7 @@ class _MessageBubbleState extends State<MessageBubble> {
                       borderRadius: BorderRadius.only(
                         topLeft: const Radius.circular(12),
                         topRight: const Radius.circular(12),
+                        // Adjust bottom corners based on sender
                         bottomLeft: Radius.circular(widget.isUser ? 12 : 0),
                         bottomRight: Radius.circular(widget.isUser ? 0 : 12),
                       ),

@@ -15,6 +15,7 @@ class TurboVetsApp extends StatelessWidget {
     return MaterialApp(
       title: 'TurboVets Messaging App',
       theme: ThemeData(
+        // Light / Default Theme
         brightness: Brightness.light,
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.white,
@@ -27,9 +28,6 @@ class TurboVetsApp extends StatelessWidget {
           backgroundColor: Colors.white,
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.blue,
-
-          // selectedLabelStyle: TextStyle(fontSize: 16),
-          // unselectedIconTheme: IconThemeData(size: 14),
           unselectedLabelStyle: TextStyle(fontSize: 12),
         ),
         cardTheme: CardTheme(
@@ -44,7 +42,7 @@ class TurboVetsApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         scaffoldBackgroundColor: Colors.grey[900],
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.grey[900],
+          backgroundColor: const Color.fromRGBO(33, 33, 33, 1),
           foregroundColor: Colors.white,
           elevation: 1,
         ),
@@ -52,8 +50,6 @@ class TurboVetsApp extends StatelessWidget {
           backgroundColor: Colors.grey[900],
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.blue,
-          // selectedLabelStyle: const TextStyle(fontSize: 16),
-          // unselectedIconTheme: const IconThemeData(size: 14),
         ),
         cardTheme: CardTheme(color: Colors.grey[800], elevation: 1),
         textTheme: const TextTheme(bodyLarge: TextStyle(color: Colors.white70)),
@@ -78,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _pages = [const ChatScreen(), const WebviewScreen()];
 
+  // Handle tab changes
   void _onTabTapped(int index) {
     setState(() {
       _selectedIndex = index;

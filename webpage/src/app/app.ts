@@ -11,16 +11,26 @@ declare global {
   standalone: true,
   selector: 'app-root',
   imports: [RouterOutlet, RouterModule],
-  template: '<router-outlet></router-outlet>',
-  templateUrl: './app.html',
+  template: `
+    <div [style.opacity]="isReady() ? 1 : 0" [style.transition]="'opacity 0.3s ease'">
+      <router-outlet></router-outlet>
+    </div>
+  `,
   styleUrl: './app.css'
 })
 export class App implements OnInit, OnDestroy {
   isDarkMode = signal(false);
+  isReady = signal(false);
 
   ngOnInit() {
+    // Listen for theme changes
     window.addEventListener('themeChange', this.handleThemeChange.bind(this));
     this.isDarkMode.set(document.body.classList.contains('dark-theme'));
+    
+    // Simulate delay to allow dashboard to load
+    setTimeout(() => {
+      this.isReady.set(true);
+    }, 250);
   }
 
   ngOnDestroy() {

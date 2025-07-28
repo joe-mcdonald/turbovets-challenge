@@ -13,6 +13,7 @@ class Message {
 
   Message({required this.text, required this.timestamp, required this.isUser});
 
+  // Convert Message to JSON to save in shared preferences
   Map<String, dynamic> toJson() {
     return {
       'text': text,
@@ -21,6 +22,7 @@ class Message {
     };
   }
 
+  // Convert JSON to Message object
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
       text: json['text'],
@@ -67,6 +69,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void dispose() {
+    // Cancel any ongoing typing timer and dispose controllers
     _typingTimer?.cancel();
     _controller.dispose();
     _scrollController.dispose();
@@ -84,8 +87,20 @@ class _ChatScreenState extends State<ChatScreen> {
         _messages.add(Message.fromJson(messageMap));
       }
     });
+
+    await Future.delayed(const Duration(milliseconds: 100));
+
+    // scroll to bottom after loading messages
+    if (mounted && _scrollController.hasClients) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
   }
 
+  // Save messages to shared preferences
   Future<void> _saveMessages() async {
     final prefs = await SharedPreferences.getInstance();
     final List<String> messagesJson =
@@ -96,6 +111,7 @@ class _ChatScreenState extends State<ChatScreen> {
     await prefs.setStringList('messages', messagesJson);
   }
 
+  // Send and handle agent reply
   void _sendMessage(String text) {
     if (text.trim().isEmpty) return;
 
@@ -109,49 +125,44 @@ class _ChatScreenState extends State<ChatScreen> {
     _saveMessages();
     _scrollToBottom();
 
-    setState(() {
-      _isTyping = true;
-    });
-    _scrollToBottom();
-
-    final reply = (_agentReplies..shuffle()).first;
-    final delayMs = (reply.length * 40);
-
-    _typingTimer = Timer(Duration(milliseconds: delayMs), () {
+    // Simulate delayed response from agent
+    Timer(const Duration(milliseconds: 800), () {
       if (mounted) {
         setState(() {
-          _isTyping = false;
-          _messages.add(
-            Message(text: reply, timestamp: DateTime.now(), isUser: false),
-          );
+          _isTyping = true;
         });
-        _saveMessages();
         _scrollToBottom();
+
+        final reply = (_agentReplies..shuffle()).first;
+        final delayMs = (reply.length * 40);
+
+        _typingTimer = Timer(Duration(milliseconds: delayMs), () {
+          if (mounted) {
+            setState(() {
+              _isTyping = false;
+              _messages.add(
+                Message(text: reply, timestamp: DateTime.now(), isUser: false),
+              );
+            });
+            _saveMessages();
+            _scrollToBottom();
+          }
+        });
       }
     });
   }
 
+  // Scroll function
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
-        final maxScroll = _scrollController.position.maxScrollExtent;
-        if (maxScroll > 0) {
-          _scrollController.animateTo(
-            maxScroll,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeOut,
-          );
-        }
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent + 250,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
       }
     });
-  }
-
-  Widget _buildMessageBubble(Message msg) {
-    return MessageBubble(
-      text: msg.text,
-      isUser: msg.isUser,
-      timestamp: msg.timestamp,
-    );
   }
 
   @override
@@ -170,9 +181,11 @@ class _ChatScreenState extends State<ChatScreen> {
                   if (index == _messages.length && _isTyping) {
                     return TypingIndicator(); // Show typing indicator
                   }
-                  return _buildMessageBubble(
-                    _messages[index],
-                  ); // Show regular message
+                  return MessageBubble(
+                    text: _messages[index].text,
+                    isUser: _messages[index].isUser,
+                    timestamp: _messages[index].timestamp,
+                  );
                 },
               ),
             ),

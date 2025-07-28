@@ -31,6 +31,7 @@ class TypingIndicator extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // Typing indicator dots. Maybe animate them?
               for (int i = 0; i < 3; i++) ...[
                 Container(
                   width: 10,

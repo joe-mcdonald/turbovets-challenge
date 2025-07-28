@@ -1,14 +1,29 @@
-<div class="toolbar">
-    <button (click)="togglePreview()">
-        {{ previewMode ? 'Edit' : 'Preview' }}
+<div class="min-h-screen bg-background dark:bg-darkbg text-text dark:text-text-inverse">
+  <div class="mb-3 flex gap-2 px-2">
+    <button
+      (click)="togglePreview()"
+      class="px-3 py-1.5 text-base rounded bg-background-inverse dark:bg-darkbg-card text-text dark:text-text-inverse transition duration-300 hover:bg-border dark:hover:bg-border-dark">
+      {{ previewMode ? 'Edit' : 'Preview' }}
     </button>
-    <button *ngIf="!previewMode" (click)="save(); previewMode = true">
-        Save
+    <button
+      *ngIf="!previewMode"
+      (click)="save(); previewMode = true"
+      class="px-3 py-1.5 text-base rounded bg-background-inverse dark:bg-darkbg-card text-text dark:text-text-inverse transition duration-300 hover:bg-border dark:hover:bg-border-dark">
+      Save
     </button>
-</div>
+  </div>
 
-<div *ngIf="!previewMode">
-    <textarea [(ngModel)]="content" rows="15" placeholder="Write your knowledge here..."></textarea>
-</div>
+  <div *ngIf="!previewMode">
+    <textarea
+      [(ngModel)]="content"
+      rows="15"
+      placeholder="Write your knowledge here..."
+      class="w-96 font-mono p-4 leading-relaxed border border-border dark:border-border-dark rounded mt-3 bg-background-card2 dark:bg-darkbg-card text-text dark:text-text-inverse transition-all duration-400 mx-auto block"></textarea>
+  </div>
 
-<div *ngIf="previewMode" class="preview" [innerHTML]="renderedMarkdown"></div>
+  <div
+    *ngIf="previewMode"
+    class="w-96 border border-border dark:border-border-dark p-4 rounded mt-6 bg-background-card2 dark:bg-darkbg-card text-text dark:text-text-inverse overflow-auto transition-all duration-300 mx-auto block">
+    <div [innerHTML]="renderedMarkdown" class="prose dark:prose-invert"></div>
+  </div>
+</div>

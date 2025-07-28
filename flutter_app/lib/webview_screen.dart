@@ -17,9 +17,19 @@ class _WebviewScreenState extends State<WebviewScreen> {
     _controller =
         WebViewController()
           ..setJavaScriptMode(JavaScriptMode.unrestricted)
+          ..setNavigationDelegate(
+            NavigationDelegate(
+              onPageFinished: (String url) {
+                _updateTheme();
+              },
+            ),
+          )
+          // Comment out if testing on a physical device:
           ..loadRequest(Uri.parse('http://localhost:4200'));
-    // your local IP address. Use this if testing on a physical device
+    // Use this if testing on a physical device. Replace xxx.xxx with your local IP address:
     // ..loadRequest(Uri.parse('http://192.168.xxx.xxx:4200'));
+    // Use this if testing on Android:
+    // ..loadRequest(Uri.parse('http://10.0.2.2:4200'));
   }
 
   @override
@@ -28,6 +38,7 @@ class _WebviewScreenState extends State<WebviewScreen> {
     _updateTheme();
   }
 
+  // Update the theme in the webview
   void _updateTheme() {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
@@ -38,6 +49,7 @@ class _WebviewScreenState extends State<WebviewScreen> {
     ''');
   }
 
+  // Reload the webview when the theme changes
   @override
   Widget build(BuildContext context) {
     return Scaffold(

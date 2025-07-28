@@ -1,25 +1,60 @@
-<div class="mb-4 border-l border-gray-300 pl-4">
-    <button (click)="setStatusFilter('All')" [class.active]="selectedStatus === 'All'" class="btn btn-primary">All</button>
-    <button (click)="setStatusFilter('Open')" [class.active]="selectedStatus === 'Open'" class="btn btn-primary">Open</button>
-    <button (click)="setStatusFilter('In Progress')" [class.active]="selectedStatus === 'In Progress'" class="btn btn-primary">In Progress</button>
-    <button (click)="setStatusFilter('Closed')" [class.active]="selectedStatus === 'Closed'" class="btn btn-primary">Closed</button>
+<div class="mb-3 flex gap-2 px-2 ">
+  <!--  Buttons for filtering tickets -->
+  <button
+    (click)="setStatusFilter('All')"
+    [ngClass]="{
+      'bg-primary text-white font-bold text-lg': selectedStatus === 'All',
+      'bg-background-inverse dark:bg-darkbg-card text-text dark:text-text-inverse': selectedStatus !== 'All'
+    }"
+    class="px-3 py-1.5 rounded border border-transparent transition-all duration-300">
+    All
+  </button>
+  <button
+    (click)="setStatusFilter('Open')"
+    [ngClass]="{
+      'bg-primary text-white font-bold text-lg': selectedStatus === 'Open',
+      'bg-background-inverse dark:bg-darkbg-card text-text dark:text-text-inverse': selectedStatus !== 'Open'
+    }"
+    class="px-3 py-1.5 rounded border border-transparent transition-all duration-300">
+    Open
+  </button>
+  <button
+    (click)="setStatusFilter('In Progress')"
+    [ngClass]="{
+      'bg-primary text-white font-bold text-lg': selectedStatus === 'In Progress',
+      'bg-background-inverse dark:bg-darkbg-card text-text dark:text-text-inverse': selectedStatus !== 'In Progress'
+    }"
+    class="px-3 py-1.5 rounded border border-transparent transition-all duration-300">
+    In Progress
+  </button>
+  <button
+    (click)="setStatusFilter('Closed')"
+    [ngClass]="{
+      'bg-primary text-white font-bold text-lg': selectedStatus === 'Closed',
+      'bg-background-inverse dark:bg-darkbg-card text-text dark:text-text-inverse': selectedStatus !== 'Closed'
+    }"
+    class="px-3 py-1.5 rounded border border-transparent transition-all duration-300">
+    Closed
+  </button>
 </div>
 
-<table class="ticket-table">
-    <thead>
-        <tr>
-            <th>Ticket ID</th>
-            <th>Subject</th>
-            <th>Status</th>
-            <th>Created At</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let ticket of filteredTickets">
-            <td>{{ ticket.id }}</td>
-            <td>{{ ticket.subject }}</td>
-            <td>{{ ticket.status }}</td>
-            <td>{{ ticket.createdAt }}</td>
-        </tr>
-    </tbody>
+<!--  Table to display tickets -->
+<table class="w-full border-collapse bg-background dark:bg-darkbg text-text dark:text-text-inverse transition-all duration-300">
+  <thead>
+    <tr>
+      <th class="border border-border dark:border-border-dark bg-background-card2 dark:bg-darkbg-card text-left font-bold p-2">Ticket ID</th>
+      <th class="border border-border dark:border-border-dark bg-background-card2 dark:bg-darkbg-card text-left font-bold p-2">Subject</th>
+      <th class="border border-border dark:border-border-dark bg-background-card2 dark:bg-darkbg-card text-left font-bold p-2">Status</th>
+      <th class="border border-border dark:border-border-dark bg-background-card2 dark:bg-darkbg-card text-left font-bold p-2">Created At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ticket of filteredTickets" class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+      <td class="border border-border dark:border-border-dark p-2">{{ ticket.id }}</td>
+      <td class="border border-border dark:border-border-dark p-2">{{ ticket.subject }}</td>
+      <td class="border border-border dark:border-border-dark p-2">{{ ticket.status }}</td>
+      <td class="border border-border dark:border-border-dark p-2">{{ ticket.createdAt }}</td>
+    </tr>
+  </tbody>
 </table>
+

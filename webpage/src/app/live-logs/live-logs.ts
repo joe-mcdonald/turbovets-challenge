@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -7,29 +7,29 @@ import { RouterModule } from '@angular/router';
   selector: 'app-live-logs',
   imports: [CommonModule, RouterModule],
   templateUrl: './live-logs.html',
-  styleUrl: './live-logs.css'
 })
 
 export class LiveLogs {
-  logs: string[] = []; // Initially empty
+  logs: string[] = [];
   private intervalId: any;
 
+  // log container for autoscrolling
   @ViewChild('logContainer') logContainer!: ElementRef<HTMLDivElement>;
 
+  private readonly minInterval = 1000;
+  private readonly maxInterval = 1500;
+  intervalTime = Math.floor(Math.random() * (this.maxInterval - this.minInterval + 1)) + this.minInterval;
+
+  // start the automatic log generation
   ngOnInit() {
     this.intervalId = setInterval(() => {
       const newLog = `[${new Date().toLocaleDateString()}] Event: ${this.randomEvent()}`;
       this.logs.push(newLog);
       setTimeout(() => this.scrollToBottom(), 0);
-    }, 2000);
+    }, this.intervalTime);
   }
 
-  ngOnDestroy() {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
-  }
-
+  // autoscroll
   scrollToBottom(): void {
     if (this.logContainer) {
       const el = this.logContainer.nativeElement;
@@ -37,6 +37,7 @@ export class LiveLogs {
     }
   }
 
+  // Random event getter
   private randomEvent(): string {
     const events = [
       'User logged in',

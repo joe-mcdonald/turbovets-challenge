@@ -1,10 +1,5 @@
 import { Routes } from '@angular/router';
-import { Dashboard } from './dashboard/dashboard';
 import { Header } from './header/header';
-import { TicketViewer } from './ticket-viewer/ticket-viewer';
-import { KnowledgeEditor } from './knowledge-editor/knowledge-editor';
-import { LiveLogs } from './live-logs/live-logs';
-import { provideRouter } from '@angular/router';
 
 
 export const routes: Routes = [
@@ -12,10 +7,7 @@ export const routes: Routes = [
         path: '',
         component: Header,
         children: [
-            // { 
-            //     path: 'dashboard', 
-            //     loadComponent: () => import('./dashboard/dashboard').then(m => m.Dashboard),
-            // },
+            // all the routes for the application
             { 
                 path: 'tickets', 
                 loadComponent: () => import('./ticket-viewer/ticket-viewer').then(m => m.TicketViewer),
@@ -28,14 +20,17 @@ export const routes: Routes = [
                 path: 'logs', 
                 loadComponent: () => import('./live-logs/live-logs').then(m => m.LiveLogs),
             },
+            // default route
             { 
                 path: '', 
                 redirectTo: 'tickets', 
-                pathMatch: 'full' }, // redirect to tickets by default
+                pathMatch: 'full' 
+            },
+            // 404 route
             { 
                 path: '**', 
-                redirectTo: 'tickets' 
-            } // redirect any unknown paths to tickets
+                redirectTo: 'tickets'
+            } 
         ]
     }
 ];
